@@ -5,14 +5,7 @@ using UnityEngine.UI;
 
 public class LevelChanger : MonoBehaviour
 {
-    [System.Serializable]
-    public struct levelObject
-    {
-        public string name;
-        public Color color;
-        public GameObject levelPrefab;
-    }
-    public levelObject[] level;
+    public LevelPrefab[] level;
     private int levelDifficulty;
 
     private GameObject currentPrefab;
@@ -34,6 +27,9 @@ public class LevelChanger : MonoBehaviour
 
     void ChangeElement()
     {
+        // pass the current level to the level save data
+        LevelSaveData.Instance.currentLevel = level[levelDifficulty];
+
         currentPrefab = Instantiate(level[levelDifficulty].levelPrefab);
         levelDifficultyText.text = level[levelDifficulty].name;
         var colors = levelDifficultyButton.colors;
